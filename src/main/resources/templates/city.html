@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+	integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
+	crossorigin="anonymous" />
+<link rel="stylesheet" href="../static/css/cityStyle.css" />
+<link rel="stylesheet" href="cityStyle.css"
+	th:href="@{/css/cityStyle.css}" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
+	rel="stylesheet" />
+<title>Weather App</title>
+
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/js/background.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="main content">
+			<div class="main-info">
+				<div class="city-info">
+					<h1>
+						<span class="city-name" th:text="${todayInfo.name}"></span> <span
+							class="country-name" th:text="${todayInfo.sys.country}"></span>
+					</h1>
+					<div class="city-coord">
+						<h6 class="city-lat">
+							lat <span th:text="${todayInfo.coord.lat}"></span>º
+						</h6>
+						<h6 class="city-lon">
+							lon <span th:text="${todayInfo.coord.lon}"></span>º
+						</h6>
+					</div>
+				</div>
+				<div class="city-weather">
+					<div class="weather-info">
+						<img
+							th:src="@{'http://openweathermap.org/img/wn/' + ${todayInfo.weather[0].icon} + '.png'}" />
+						<h2 th:text="${todayInfo.weather[0].main}"></h2>
+					</div>
+					<div class="weather-temps">
+						<h1>
+							<span th:text="${weekInfo.current.temp}"></span>º
+						</h1>
+						<div class="weather-maxmin">
+							<h6>
+								<span th:text="${weekInfo.daily[0].temp.max}"></span>º
+							</h6>
+							<h6>
+								<span th:text="${weekInfo.daily[0].temp.min}"></span>º
+							</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="chart d">
+				<canvas class="myChart-d" width="400" height="250"></canvas>
+			</div>
+
+
+		</div>
+		<div class="side content">
+			<div class="forecast-table">
+				<table>
+					<tbody>
+						<tr th:each="day : ${weekInfo.week}">
+							<td class="secondary"
+								th:text="${weekInfo.week[dayStat.index].dayOfMonth}"></td>
+							<td class="secondary"
+								th:text="${weekInfo.week[dayStat.index].dayOfWeek}"></td>
+							<td class="primary"><span
+								th:text="${weekInfo.daily[dayStat.index].temp.max}"></span>º | <span
+								th:text="${weekInfo.daily[dayStat.index].temp.min}"></span>º</td>
+							<td class="primary"><img
+								th:src="@{'http://openweathermap.org/img/wn/' + ${weekInfo.daily[dayStat.index].weather[0].icon} + '.png'}" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+
+			</div>
+
+			<div class='chart m'>
+				<canvas class="myChart-m" width="400" height="400"></canvas>
+			</div>
+
+			<footer>
+				<small>Por <strong>Pedro Dell'Olio</strong>. Feito com <strong>OpenWeatherMap.</strong></small>
+			</footer>
+		</div>
+	</div>
+</body>
+
+<script th:inline="javascript">
+	var dayTime = /*[[${todayInfo.weather[0].icon}]]*/"noValue";
+	changeBackground(dayTime);
+	
+	var dataTemp = [];
+	var dataWeek = [];
+	/*[# th:each="day : ${weekInfo.week}"]*/
+		dataWeek.push('[(${weekInfo.week[dayStat.index].dayOfWeek})]');
+		dataTemp.push([(${ weekInfo.daily[dayStat.index].temp.day })]);
+	/*[/]*/
+	
+	var ctxMobile = document.querySelector('.myChart-m').getContext('2d');
+	var ctxDesktop = document.querySelector('.myChart-d').getContext('2d');
+	
+	drawChart(dataTemp, dataWeek, ctxMobile);
+	drawChart(dataTemp, dataWeek, ctxDesktop);
+	
+	function drawChart(dataTemp, dataWeek, ctx) {
+		var myChart = new Chart(ctx, {
+		    type: 'line',
+		    data: {
+		        labels: dataWeek,
+		        datasets: [{
+		            data: dataTemp,
+		            backgroundColor: [
+		                'rgba(255, 99, 132, 0.2)',
+		            ],
+		            borderColor: [
+		            	'#ec6e4c',
+		            ],
+		            borderWidth: 2
+		        }]
+		    },
+		    options: {
+		    	plugins: {
+		    		legend: {
+		    			display: false
+		    		},
+		    		tooltip: {
+		                enabled: false
+		             }
+		    	},
+		    	scales: {
+		    		y: {
+		    			grid: {
+			            	color: '#CCCCCC'
+		            	},
+		            	ticks: {
+		                    color: "#CCCCCC",
+		                }
+		    		},
+		    		x: {
+		            	grid: {
+			            	color: '#CCCCCC'
+		            		
+		            	},
+		            	ticks: {
+		                    color: "#CCCCCC",
+		                }
+		            }
+		        },
+		        
+
+		    }
+		});
+	}
+	
+</script>
+
+</html>

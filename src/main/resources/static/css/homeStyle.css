@@ -1,0 +1,68 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-image: linear-gradient(rgba(255, 255, 255, 0.2),
+		rgba(255, 255, 255, 0.2)),
+		url('../images/elio-santos-B6hw9ooyldM-unsplash.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+h1 {
+	font-size: 80px;
+	color: #fff;
+}
+
+small {
+	color: #fff;
+}
+
+.main {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	height: 100vh;
+}
+
+.search-container {
+	background-color: rgba(0, 0, 0, 0.2);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 60px;
+}
+
+.form-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+form {
+	width: 80%;
+	max-width: 600px;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	padding: 10px 20px;
+	background-color: rgba(0, 0, 0, 0.35);
+}
+
+@media ( max-width : 768px) {
+	h1 {
+		font-size: 60px;
+	}
+	footer {
+		width: 100%;
+		text-align: center;
+	}
+}

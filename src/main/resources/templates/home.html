@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+	crossorigin="anonymous">
+<link rel="stylesheet" href="../static/css/homeStyle.css" />
+<link rel="stylesheet" href="homeStyle.css"
+	th:href="@{/css/homeStyle.css}" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
+	rel="stylesheet" />
+<title>Weather App</title>
+</head>
+<body>
+	<div class="main">
+		<div class="search-container">
+			<h1>Weather App</h1>
+			<div class="form-container">
+				<form th:action="@{/weather/find}" method="GET">
+					<div class="mb-2">
+						<label class="form-label" for="name"></label><br> <input
+							class="form-control" type="text" name="name" id="name"><br>
+					</div>
+
+					<button class="submit button btn btn-primary" type="submit">Enviar</button>
+
+				</form>
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<footer>
+		<small>2021. Feito por <strong>Pedro Dell'Olio</strong>. Feito
+			com o <strong>OpenWeatherMap.</strong></small>
+	</footer>
+
+</body>
+</html>
