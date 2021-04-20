@@ -23,7 +23,11 @@ http://localhost:8080
 
 # Protótipo
 É possível visualizar o protótipo do projeto no Figma. [Clique aqui](https://www.figma.com/file/15uWrBTW1U2rCXvIfobyuo/spring-weather-app?node-id=0%3A1)!
+<p align="center" style="display: flex; align-items: flex-start; justify-content: center; flex-direction: column;">
+  <img alt="Protótipo" src="./assets/prototipo-1.png" width="400px">
 
+  <img alt="Protótipo" src="./assets/prototipo-2.png" width="400px">
+</p>
 
 ---
 Por [Pedro Dell'Olio](https://github.com/pedrodellolio). Feito com a API do [OpenWeatherMap](https://openweathermap.org).
